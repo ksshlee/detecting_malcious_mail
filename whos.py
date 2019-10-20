@@ -51,7 +51,7 @@ def checkdomain(url):
 
     print(res.fld)
     
-    if res.fld in list:
+    if res.fld in domain_list:
         return 1
     return 0
 
@@ -87,42 +87,38 @@ def checknetwork(url):
 def urlwhois(url):
     "url whois 활용"
     f = open('test.txt', 'r')
-    data = f.read()
-    print(data)
-    text=whois.whois('{0}'.format(url))
-    # domain_name=text['domain_name']
-    # creation_date=text['creation_date']
+    data = f.read() # save all data in data from test.txt
+    text=whois.whois('{0}'.format(url))#save whois data in text
+    domain_name=text['domain_name']
+    creation_date=text['creation_date']
 
-    # if domain_name is list:
-    #     for dm in domain_name:
-    #         if dm in data:
-    #             print("not phish!")
-    #         else:
-    #             print('no data in!')
-    # else :
-    #     if str(domain_name) in data:
-    #         print('no phish!')
-    #     else :
-    #         print('phish')
+    if isinstance(domain_name, list):
+        for dm in domain_name:
+            if dm in data:
+                print("not phish!")
+            else:
+                print('no data in!')
+    else :
+        if str(domain_name) in data:
+            print('no phish!')
+        else :
+            print('phish')
 
-    # if creation_date is list:
-    #     for cd in creation_date:
-    #         if cd in data:
-    #             print("not phish")
-    #         else:
-    #             print('phish')
-    # else : 
-    #     if str(creation_date) in data:
-    #         print('not phish')
-    #     else:
-    #         print('phish')
+    
+    if isinstance(creation_date, list):
+        for cd in creation_date:
+            if str(cd) in data:
+                print("not phish")
+            else:
+                print('phish')  
+    else : 
+        if str(creation_date) in data:
+            print('not phish')
+        else:
+            print('phish')
 
 
     f.close()
-    # print(type(domain_name))
-    # print(domain_name)
-    # print(type(creation_date))
-    # print(creation_date)
 
 
 
@@ -133,4 +129,5 @@ url4 = 'paypal.com-confirm-your-paypal-account.trainkook.com/Suspended-Account/L
 url5= 'https://banking.nonghyup.com'
 url6 = 'https://naver.com//192.168.10.11'
 url7 = 'https://www.google.com/search?newwindow=1&client=safari&rls=en&sxsrf=ACYBGNST4eiZh1HgmFAT9WEuQvIrHxydug%3A1571543348062&ei=NNmrXeW4A6Gh-Qakt6ygDg&q=naver.com&oq=naver.com&gs_l=psy-ab.3..35i39j0j0i10j0l7.494205.495130..495271...0.0..0.223.1034.6j2j1......0....1..gws-wiz.......0i131j0i67j0i20i263.VTcUam8Z4pA&ved=0ahUKEwjlooqY96nlAhWhUN4KHaQbC-QQ4dUDCAo&uact=5'
-checkipaddress(url7)
+url8 = 'https://onland.kbstar.com/quics?page=okbland&QSL=F'
+urlwhois(url8)
