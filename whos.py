@@ -1,6 +1,7 @@
 from tld import get_tld
 from urllib.parse import urlparse
 import whois
+import re
 # 1은 정상 0은 의심 -1은 피싱
 
 
@@ -33,6 +34,13 @@ def checkdoubleslash(url):
 
 def checkipaddress(url):
     "url에 ip주소가 있는지 없는지 확인해주는 함수"
+    text = (re.search('([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3}.)', '{0}'.format(url)))
+    if text == None:
+        print('not phish')
+        return
+
+    print('phish')
+
 
 
 def checkdomain(url):
@@ -123,4 +131,6 @@ url2 = 'www.naver.com'
 url3 = 'https://www.citibank.co.kr/InsGuidDmnd0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_001830'
 url4 = 'paypal.com-confirm-your-paypal-account.trainkook.com/Suspended-Account/Login/login?cmd=_signin&amp;dispatch=2e6f676ff44b310b672e8042a&amp;locale=en_US'
 url5= 'https://banking.nonghyup.com'
-urlwhois(url2)
+url6 = 'https://naver.com//192.168.10.11'
+url7 = 'https://www.google.com/search?newwindow=1&client=safari&rls=en&sxsrf=ACYBGNST4eiZh1HgmFAT9WEuQvIrHxydug%3A1571543348062&ei=NNmrXeW4A6Gh-Qakt6ygDg&q=naver.com&oq=naver.com&gs_l=psy-ab.3..35i39j0j0i10j0l7.494205.495130..495271...0.0..0.223.1034.6j2j1......0....1..gws-wiz.......0i131j0i67j0i20i263.VTcUam8Z4pA&ved=0ahUKEwjlooqY96nlAhWhUN4KHaQbC-QQ4dUDCAo&uact=5'
+checkipaddress(url7)
