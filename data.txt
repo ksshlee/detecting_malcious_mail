@@ -28,6 +28,7 @@ https://www.miraeassetdaewoo.com
 https://m.daishin.com
 https://www.iprovest.com
 http://www.yuantakorea.com
+https://toss.im
 www.youtube.com
 www.naver.com
 www.google.com
@@ -125,9 +126,5 @@ www.buzzfeed.com
 www.wellsfargo.com
 www.msn.com
 www.weather.com
-
 www.namu.wiki
 www.imgur.com
-
-
-ConnectionResetError

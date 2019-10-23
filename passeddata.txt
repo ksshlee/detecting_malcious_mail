@@ -1,0 +1,23 @@
+https://www.hanafn.com:8002 : None  None
+www.blogspot.kr : None  None 
+www.wooribank.com = pass
+https://sccd.wooribank.com = pass
+spot.wooribank.com = pass
+www.shinhan.com = pass
+https://www.shinhaninvest.com = pass
+https://www.nhqv.com = pass
+https://www.kiwoom.com = pass
+https://www.hanwhawm.com = pass
+www.google.com = pass
+www.chosun.com = pass
+www.joins.com = pass
+www.dcinside.com = pass
+www.microsoft.com = pass
+www.yahoo.com = pass
+www.wikipedia.org = pass
+www.netflix.com = pass
+www.microsoftonline.com = pass
+www.blogspot.com = pass
+www.buzzfeed.com = pass
+www.msn.com = pass
+www.imgur.com = pass

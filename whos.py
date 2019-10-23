@@ -86,41 +86,69 @@ def checknetwork(url):
 
 def urlwhois(url):
     "url whois 활용"
-    f = open('test.txt', 'r')
-    data = f.read() # save all data in data from test.txt
-    text=whois.whois('{0}'.format(url))#save whois data in text
-    domain_name=text['domain_name']
-    creation_date=text['creation_date']
+    f = open('test.txt', 'r') #open the data set
+    line = f.read().splitlines()
+    f.close()
+    text=whois.whois('{0}'.format(url)) #save whois data in text
+    domain_name=text['domain_name'] #domain_name of test url
+    creation_date=text['creation_date'] #creation_date of test url
+
+    #this proccess is making a data with dictionary
+    data = {}
+    for d in line:
+        (key,value) = d.split(" : ")
+        data[key] = value
 
     if isinstance(domain_name, list):
-        for dm in domain_name:
-            if dm in data:
-                print("not phish!")
-            else:
-                print('no data in!')
+        for dn in domain_name:
+            passornot = False
+            #this proccess is to find out the key and compare with values
+            for flag in data.keys():
+                if dn in data[flag]:
+                    print("not phish!")
+                    #if data have a same value with dn passornot is true
+                    passornot = True 
+                    break
+            #if passornot is false
+            if passornot == False:
+                print('phish')
+                return -1
     else :
-        if str(domain_name) in data:
-            print('no phish!')
-        else :
+        passornot = False
+        #this proccess is to find out the key
+        for flag in data.keys():
+            if str(domain_name) in data[flag]:
+                print('not phish!')
+                passornot = True
+                break
+        if passornot == False:
             print('phish')
+            return -1
 
+    print("your flag is : %s" %(flag))
     
     if isinstance(creation_date, list):
+        passornot = False
         for cd in creation_date:
-            if str(cd) in data:
+            #find creation_date in same dictionary of domain_name
+            if str(cd) in data[flag]:
+                passornot = True
                 print("not phish")
-            else:
-                print('phish')  
+                return 1
+        
+        if passornot == False:
+            print('phish')
+            return 0
     else : 
-        if str(creation_date) in data:
+        if str(creation_date) in data[flag]:
             print('not phish')
+            return 1
         else:
             print('phish')
+            return 0
 
 
     f.close()
-
-
 
 url = 'www.digitalforensics.or.kr' #유현 강사님 사이트
 url2 = 'www.naver.com'
@@ -129,5 +157,5 @@ url4 = 'paypal.com-confirm-your-paypal-account.trainkook.com/Suspended-Account/L
 url5= 'https://banking.nonghyup.com'
 url6 = 'https://naver.com//192.168.10.11'
 url7 = 'https://www.google.com/search?newwindow=1&client=safari&rls=en&sxsrf=ACYBGNST4eiZh1HgmFAT9WEuQvIrHxydug%3A1571543348062&ei=NNmrXeW4A6Gh-Qakt6ygDg&q=naver.com&oq=naver.com&gs_l=psy-ab.3..35i39j0j0i10j0l7.494205.495130..495271...0.0..0.223.1034.6j2j1......0....1..gws-wiz.......0i131j0i67j0i20i263.VTcUam8Z4pA&ved=0ahUKEwjlooqY96nlAhWhUN4KHaQbC-QQ4dUDCAo&uact=5'
-url8 = 'https://onland.kbstar.com/quics?page=okbland&QSL=F'
+url8 = 'https://land.naver.com'
 urlwhois(url8)
