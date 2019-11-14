@@ -4,8 +4,8 @@ import os
 import email
 import sys
 
-email_user = ('asd@gmail.com') #이메일 주소
-email_pass = ('asd!') #이메일 비밀번호 
+email_user = ('test1for2proj3@gmail.com') #이메일 주소
+email_pass = ('q1!w2@e3#') #이메일 비밀번호 
 
 mail = imaplib.IMAP4_SSL("imap.gmail.com","993") #주소와 포트번호 
 
@@ -99,7 +99,3 @@ for num in data[0].split():
             
                 print(file_split + " 첨부파일을 다운로드 하였습니다")
                 print("\n"+"\n")
-
-                
-
-    

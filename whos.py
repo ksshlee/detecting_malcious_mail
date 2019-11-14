@@ -5,11 +5,10 @@ from selenium import webdriver
 import re
 # 1은 정상 0은 의심 -1은 피싱
 
-
 def checklength(url):#checked
     "url 길이 확인해주는 함수"
     if len(url)<54:
-        return 1
+        return 2
     elif 54 <= len(url) <= 75:
         return 0
     else:
@@ -18,28 +17,28 @@ def checklength(url):#checked
 def checkgolbange(url):#checked
     "url에 @가 있는지 없는지 확인해주는 함수"
     if "@" in url:
-        return -1
-    return 1
+        return -6
+    return 3
 
 def checkslash(url):#checked
     "url에 -가 있는지 없는지 확인해주는 함수"
     if "-" in url:
-        return -1
-    return 1
+        return -2
+    return 2
 
 def checkdoubleslash(url):#checked
     "url에 추가적인 //가 있는지 확인"
     if "//" in url[7:]:
-        return -1
-    return 1
+        return -4
+    return 2
 
 def checkipaddress(url):#checked
     "url에 ip주소가 있는지 없는지 확인해주는 함수"
     text = (re.search('([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3}.)', '{0}'.format(url)))
     if text == None:
-        return 1
+        return 3
 
-    return -1
+    return -9
 
 
 
@@ -56,7 +55,7 @@ def checkipaddress(url):#checked
 #     return 0
 
 
-def httpsorhttp(url):#수정 필요 왜냐하면 www.naver.com 이면 확인을 못함
+def httpsorhttp(url):#checked
     "http 인지 https인지 도출 요즘 은행, 비트코인 등 왠만한 거래들, 대기업 사이트들은 다 https에유"
     if 'https' in url or 'http' in url:
         pass
@@ -75,27 +74,25 @@ def httpsorhttp(url):#수정 필요 왜냐하면 www.naver.com 이면 확인을 
     url = driver.current_url
 
     if(url[:url.find(":")]=='https'):
-        return 1
+        return 3
 
 
-    return 0
+    return -4
 
 
 def checkport(url):#checked
     "url에 포트있는지 없는지 확인"
     parts = urlparse('{0}'.format(url))
     if parts.port == None:
-        return 1
+        return 2
     elif parts.port == 80 or parts.port == 443:
         return 0
     else :
-        return -1
+        return -4
 
-# def checknetwork(url):
-#     "url 네트워크 위치 확인"
-#     parts = urlparse('{0}'.format(url))
-#     print(parts.netloc)
-    
+# def shortenurl(url): not yet but soon will be update
+#     if sorten:
+#         return -10
 
 def urlwhois(url):#checked
     "url whois 활용"
@@ -123,7 +120,6 @@ def urlwhois(url):#checked
                     break
             #if passornot is false
             if passornot == False:
-                print('phish')
                 return -1
     else :
         passornot = False
@@ -133,7 +129,6 @@ def urlwhois(url):#checked
                 passornot = True
                 break
         if passornot == False:
-            print('phish')
             return -1
 
     
@@ -170,71 +165,36 @@ def define(url):
 
     checklist=[checklength,checkgolbange,checkslash,checkdoubleslash,checkipaddress,httpsorhttp,checkport] #checknetwork , checkdomain   is not complete yet
 
-    reasonphish=[]
-    result=[]
-
+    reasonphish=[] # to tell why it is phish
 
     if (urlwhois(url)==1):
         print(ifdocs(url))#if url is docs print it
-        return 100         
+        sum+=100         
     else:
         for i in checklist:
-            result.append(str(i(url)))
-            if i(url)==-1 or i(url)==0:
-                reasonphish.append(i)
-
-    
-    
-    if(result[0]=='0'):
-        sum+=1
-    elif(result[0]=='1'):
-        sum+=2
-
-    if(result[1]=='-1'):
-        sum+=1
-    elif(result[1]=='1'):
-        sum+=3
-
-    if(result[2]=='-1'):
-        sum+=0.5
-    elif(result[2]=='1'):
-        sum+=1
-
-
-    if(result[3]=='-1'):
-        sum+=0.5
-    elif(result[3]=='1'):
-        sum+=1
-
-
-    if(result[4]=='-1'):
-        sum+=2
-    elif(result[4]=='1'):
-        sum+=4
-
-
-    if(result[5]=='0'):
-        sum+=3
-    elif(result[5]=='1'):
-        sum+=5
-
-    if(result[6]=='-1'):
-        sum+=1
-    elif(result[6]=='0'):
-        sum+=3
-    elif(result[6]=='1'):
-        sum+=5
-
-
-
-    print(result)
+            print(str(i(url)))
+            sum+=i(url)
+            if i(url)<=0 :
+                reasonphish.append(str(i))
         
-
-
     print(sum)
     
 
-    print(reasonphish)
+    for i in reasonphish:
+        if 'checklength' in i:
+            print('beacuse of your length!')
+        if 'checkgolbange' in i:
+            print('beacuse your url include @')
+        if 'checkslash' in i:
+            print('beacuse your url include -')
+        if 'checkdoubleslash' in i:
+            print('because your url include //')
+        if 'checkipaddress' in i:
+            print('because your url contains ip address')
+        if 'httpsorhttp' in i:
+            print('because your url is http')
+        if 'checkport' in i:
+            print('your url have port')
 
 
 
@@ -250,4 +210,7 @@ url8 = 'https://docs.google.com/forms/d/1wmR4CnF4NvyH7OKbulH2mOSYyA-2QXuHwvpxu-w
 url9 = 'http://mju.ac.kr'
 url10 = 'http://77tunes.co/wp-admin/css/colors/blue/dgoh.vn/Account/index.php?email=lichao080975@lgdisplay.com'
 
-define(url6)
+url12='192.168.10.0'
+
+
+define(url10)
