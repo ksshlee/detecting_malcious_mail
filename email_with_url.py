@@ -5,8 +5,8 @@ import email
 import sys
 import re
 
-email_user = ('zzaxex5@gmail.com') #이메일 주소
-email_pass = ('qhdkscjfwj0!') #이메일 비밀번호
+email_user = ('***@gmail.com') #이메일 주소
+email_pass = ('**!') #이메일 비밀번호
 
 mail = imaplib.IMAP4_SSL("imap.gmail.com","993") #주소와 포트번호
 
