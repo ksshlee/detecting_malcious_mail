@@ -4,6 +4,7 @@ import os
 import email
 import sys
 import re
+import whos
 
 email_user = ('***@gmail.com') #이메일 주소
 email_pass = ('**!') #이메일 비밀번호
@@ -94,9 +95,11 @@ for num in data[0].split():
                             body = p_body
                             print('Body : ' + p_body)
                            
-                           
-                   
-                    urls = re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', body)
+                    #정규 표현식으로 본문에 url 있는지 없는지 확인
+                    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', body)
+                    
+
+
                     print("URL: ")
                     print(urls)
      
