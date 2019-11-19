@@ -42,19 +42,6 @@ def checkipaddress(url):#checked
 
 
 
-# def checkdomain(url):# 수정 필요
-#     "url 에 도메인 개수 확인"
-#     domain_list=[".com", ".edu", ".gov", ".net", ".org", ".kr", ".jp", ".us", ".uk",  ".cn", ".fr", ".co.kr", "or.kr", "go.kr", "ac.kr"]
-
-#     res = get_tld(url,as_object=True)
-
-#     print(res.fld)
-    
-#     if res.fld in domain_list:
-#         return 1
-#     return 0
-
-
 def httpsorhttp(url):#checked
     "http 인지 https인지 도출 요즘 은행, 비트코인 등 왠만한 거래들, 대기업 사이트들은 다 https에유"
     if 'https' in url or 'http' in url:
@@ -168,48 +155,30 @@ def define(url):
     reasonphish=[] # to tell why it is phish
 
     if (urlwhois(url)==1):
-        print(ifdocs(url))#if url is docs print it
-        sum+=100         
+        sum+=100
     else:
         for i in checklist:
             sum+=i(url)
             if i(url)<=0 :
                 reasonphish.append(str(i))
-        
-    print(sum)
     
 
-    for i in reasonphish:
-        if 'checklength' in i:
-            print('beacuse of your length!')
-        if 'checkgolbange' in i:
-            print('beacuse your url include @')
-        if 'checkslash' in i:
-            print('beacuse your url include -')
-        if 'checkdoubleslash' in i:
-            print('because your url include //')
-        if 'checkipaddress' in i:
-            print('because your url contains ip address')
-        if 'httpsorhttp' in i:
-            print('because your url is http')
-        if 'checkport' in i:
-            print('your url have port')
+    reasonphish.append(sum)
 
+    return reasonphish
 
-
-
-# url = 'www.digitalforensics.or.kr' #유현 강사님 사이트
-# url2 = 'www.naver.com'
-# url3 = 'https://www.citibank.co.kr/InsGuidDmnd0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_001830'
-# url4 = 'paypal.com-confirm-your-paypal-account.trainkook.com/Suspended-Account/Login/login?cmd=_signin&amp;dispatch=2e6f676ff44b310b672e8042a&amp;locale=en_US'
-# url5= 'https://banking.nonghyup.com:9112'
-# url6 = 'https://naver.com'
-# url7 = 'https://www.google.com/search?newwindow=1&client=safari&rls=en&sxsrf=ACYBGNST4eiZh1HgmFAT9WEuQvIrHxydug%3A1571543348062&ei=NNmrXeW4A6Gh-Qakt6ygDg&q=naver.com&oq=naver.com&gs_l=psy-ab.3..35i39j0j0i10j0l7.494205.495130..495271...0.0..0.223.1034.6j2j1......0....1..gws-wiz.......0i131j0i67j0i20i263.VTcUam8Z4pA&ved=0ahUKEwjlooqY96nlAhWhUN4KHaQbC-QQ4dUDCAo&uact=5'
-# url8 = 'https://docs.google.com/forms/d/1wmR4CnF4NvyH7OKbulH2mOSYyA-2QXuHwvpxu-wjQ20/viewform?edit_requested=true'
-# url9 = 'http://mju.ac.kr'
-# url10 = 'http://77tunes.co/wp-admin/css/colors/blue/dgoh.vn/Account/index.php?email=lichao080975@lgdisplay.com'
-
-# url12 = '192.168.10.0'
-# url13 = 'iforgot.apple.com'
-
-# define(url13)
+    # for i in reasonphish:
+    #     if 'checklength' in i:
+    #         print('beacuse of your length!')
+    #     if 'checkgolbange' in i:
+    #         print('beacuse your url include @')
+    #     if 'checkslash' in i:
+    #         print('beacuse your url include -')
+    #     if 'checkdoubleslash' in i:
+    #         print('because your url include //')
+    #     if 'checkipaddress' in i:
+    #         print('because your url contains ip address')
+    #     if 'httpsorhttp' in i:
+    #         print('because your url is http')
+    #     if 'checkport' in i:
+    #         print('your url have port')

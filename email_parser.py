@@ -25,6 +25,11 @@ def checkemail(email_id,email_passwd):
     id_list = mail_ids.split() #mail_ids는 공간이 분리되어있는 string 형태
     #mail_ids[-1]을 하게 되면 가장 최신의 메일 선택
 
+
+    url_in_body = True#본문에 url이 있는지 없는지 판별
+    attachment_in_mail = True#본문에 첨부파일이 있는지 없는지 판별
+    result_of_checkurl = [] #url확인 결과
+
     for num in data[0].split():
         typ, data = mail.fetch(num, '(RFC822)' )
         raw_email = data[0][1]
@@ -101,15 +106,14 @@ def checkemail(email_id,email_passwd):
                         #정규 표현식으로 본문에 url 있는지 없는지 확인
                         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', body)
                         if (len(urls) == 0):#url이 본문에 없으면
-                            print('there is no urls in body')
+                            url_in_body = False #false
                         else :
                             if(len(urls)>=2):#2개 이상이면
                                 for i in urls:
-                                    check_url.define(i)
-                            else:# 1개 이상이면
-                                check_url.define(urls)
-
-
+                                    result_of_checkurl.append(check_url.define(i))
+                            else:# 1개면
+                                print(urls)
+                                result_of_checkurl=check_url.define(urls)
         
                     except:
                         pass
@@ -117,8 +121,10 @@ def checkemail(email_id,email_passwd):
         try:
             for part in email_message.walk(): #첨부파일을 다운받는 함수
                     if part.get_content_maintype() == 'multipart':
+                        attachment_in_mail = False
                         continue
                     if part.get('Content-Disposition') is None:
+                        attachment_in_mail = False
                         continue
                     fileName = part.get_filename()
 
@@ -145,3 +151,22 @@ def checkemail(email_id,email_passwd):
                         print('----------------------------------')
         except:
             pass
+
+
+
+
+    #최종 결과
+    #둘다 없으면 1
+    #첨부파일이 없으면 0
+    #첨부파일 있으면 -1
+    #-1이하가 되면 쿠크돌려주고
+    #0이상이면 url만 확인해주고 쿠크샌드박스는 안돌려줘도 됨
+    if url_in_body == False and attachment_in_mail == False:
+        result_of_checkurl.append(1)
+    elif attachment_in_mail == False and url_in_body == True:
+        result_of_checkurl.append(0)
+    elif url_in_body == False and attachment_in_mail == True:
+        result_of_checkurl.append(-1)
+    elif url_in_body == True and attachment_in_mail == True:
+        result_of_checkurl.append(-2)
+    return result_of_checkurl

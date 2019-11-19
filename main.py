@@ -4,7 +4,7 @@ import email_parser as e
 def checkemail():
     _id = str(email_id.get())
     _passwd = str(email_passwd.get())
-    e.checkemail(_id,_passwd)
+    print(e.checkemail(_id,_passwd))
 
 
 

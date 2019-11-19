@@ -15,3 +15,5 @@ www.paypal.com = pass
 www.blogspot.com = pass
 www.buzzfeed.com = pass
 www.msn.com = pass
+https://www.hanafn.com:8002 : None  None   
+www.blogspot.kr : None  None  

@@ -10,7 +10,6 @@ https://crowd.ibks.com : IBKS.COM  2000-11-14 22:15:25
 https://www.epostbank.go.kr : epostbank.go.kr  2000-04-10 00:00:00   
 https://www.kebhana.com : KEBHANA.COM   kebhana.com   2013-02-08 02:13:46   
 https://www.hanacard.co.kr : hanacard.co.kr  1999-02-19 00:00:00   
-https://www.hanafn.com:8002 : None  None   
 https://www.kakaobank.com : KAKAOBANK.COM   kakaobank.com   2013-07-19 10:14:50   2013-07-19 00:00:00   
 https://home.imeritz.com : IMERITZ.COM  2000-02-23 00:00:41   
 https://www.samsungpop.com : SAMSUNGPOP.COM   samsungpop.com   2011-01-31 19:58:59   
@@ -18,7 +17,7 @@ https://www.miraeassetdaewoo.com : MIRAEASSETDAEWOO.COM   miraeassetdaewoo.com  
 https://m.daishin.com : DAISHIN.COM   daishin.com   1999-04-07 04:00:00   
 https://www.iprovest.com : IPROVEST.COM  2002-07-04 09:59:05   2002-07-04 19:00:56   
 http://www.yuantakorea.com : YUANTAKOREA.COM   yuantakorea.com   2014-04-03 08:54:59   2014-04-03 00:00:00   
-https://toss.im : toss.im  None   
+https://toss.im : toss.im
 www.youtube.com : YOUTUBE.COM   youtube.com   2005-02-15 05:13:12   2005-02-14 21:13:12-08:00   
 www.naver.com : NAVER.COM   naver.com   1997-09-12 04:00:00   1997-09-12 00:00:00   
 www.google.com : GOOGLE.COM  1997-09-15 04:00:00   
@@ -48,8 +47,7 @@ www.sina.com.cn : sina.com.cn  1998-11-20 00:00:00
 www.inven.co.kr : inven.co.kr  2004-10-07 00:00:00   
 www.ruliweb.com : RULIWEB.COM   ruliweb.com   2000-04-10 06:22:47   2000-04-10 00:00:00   
 www.blog.me : BLOG.ME  2008-04-29 17:59:12   
-www.tumblr.com : TUMBLR.COM   tumblr.com   2006-06-08 22:11:40   2006-06-08 15:11:40-07:00   
-www.blogspot.kr : None  None   
+www.tumblr.com : TUMBLR.COM   tumblr.com   2006-06-08 22:11:40   2006-06-08 15:11:40-07:00    
 www.danawa.com : DANAWA.COM   danawa.com   2002-11-15 10:26:48   2002-11-14 15:00:00   
 www.reddit.com : REDDIT.COM   reddit.com   2005-04-29 17:59:19   2005-04-29 10:59:19-07:00   
 www.microsoft.com : MICROSOFT.COM  1991-05-02 04:00:00   
