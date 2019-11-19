@@ -112,9 +112,9 @@ def checkemail(email_id,email_passwd):
                                 for i in urls:
                                     result_of_checkurl.append(check_url.define(i))
                             else:# 1개면
-                                print(urls)
-                                result_of_checkurl=check_url.define(urls)
-        
+                                for i in urls:
+                                    result_of_checkurl.append(check_url.define(i))
+
                     except:
                         pass
                 
@@ -140,7 +140,7 @@ def checkemail(email_id,email_passwd):
                         file_split = fileName
 
                     if bool(file_split):
-                        filePath = os.path.join('/Users/zeros/Downloads', file_split)
+                        filePath = os.path.join('./Downloads', file_split)
                         if not os.path.isfile(filePath) :
                             fp = open(filePath, 'wb')
                             fp.write(part.get_payload(decode=True))

@@ -151,9 +151,12 @@ def define(url):
     sum =0
 
     checklist=[checklength,checkgolbange,checkslash,checkdoubleslash,checkipaddress,checkport] #checknetwork , checkdomain   is not complete yet httpsorhttp 성능 저하 유발로 일시 보류
-
     reasonphish=[] # to tell why it is phish
+    result=[]
 
+
+    result.append(url)
+    
     if (urlwhois(url)==1):
         sum+=100
     else:
@@ -162,23 +165,36 @@ def define(url):
             if i(url)<=0 :
                 reasonphish.append(str(i))
     
+    result.append(sum)
 
-    reasonphish.append(sum)
+    string=""
 
-    return reasonphish
+    for i in reasonphish:
+        if 'checklength' in i:
+            string+='beacuse of your length!  '
+        if 'checkgolbange' in i:
+            string+='beacuse your url include @  '
+        if 'checkslash' in i:
+            string+='beacuse your url include -  '
+        if 'checkdoubleslash' in i:
+            string+='because your url include //  '
+        if 'checkipaddress' in i:
+            string+='because your url contains ip address  '
+        if 'httpsorhttp' in i:
+            string+='because your url is http  '
+        if 'checkport' in i:
+            string+='your url have port'
+    #만약 결과가 100이라면
+    if sum==100:
+        result.append('피싱 사이트아님')
+        return result
 
-    # for i in reasonphish:
-    #     if 'checklength' in i:
-    #         print('beacuse of your length!')
-    #     if 'checkgolbange' in i:
-    #         print('beacuse your url include @')
-    #     if 'checkslash' in i:
-    #         print('beacuse your url include -')
-    #     if 'checkdoubleslash' in i:
-    #         print('because your url include //')
-    #     if 'checkipaddress' in i:
-    #         print('because your url contains ip address')
-    #     if 'httpsorhttp' in i:
-    #         print('because your url is http')
-    #     if 'checkport' in i:
-    #         print('your url have port')
+    #그외
+    if len(string) == 0:
+        result.append('걸린거없음')
+        return result
+
+    
+    result.append(string)
+    
+    return result
