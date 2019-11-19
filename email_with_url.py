@@ -4,7 +4,7 @@ import os
 import email
 import sys
 import re
-import whos
+import whos as check_url
 
 email_user = ('***@gmail.com') #이메일 주소
 email_pass = ('**!') #이메일 비밀번호
@@ -97,11 +97,16 @@ for num in data[0].split():
                            
                     #정규 표현식으로 본문에 url 있는지 없는지 확인
                     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', body)
-                    
+                    if (len(urls) == 0):#url이 본문에 없으면
+                        print('there is no urls in body')
+                    else :
+                        if(len(urls)>=2):#2개 이상이면
+                            for i in urls:
+                                check_url.define(i)
+                        else:# 1개 이상이면
+                            check_url.define(urls)
 
 
-                    print("URL: ")
-                    print(urls)
      
                 except:
                     pass
