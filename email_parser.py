@@ -27,7 +27,7 @@ def checkemail(email_id,email_passwd):
 
 
     url_in_body = True#본문에 url이 있는지 없는지 판별
-    attachment_in_mail = True#본문에 첨부파일이 있는지 없는지 판별
+    attachment_in_mail = False#본문에 첨부파일이 있는지 없는지 판별
     result_of_checkurl = [] #url확인 결과
 
     for num in data[0].split():
@@ -108,7 +108,7 @@ def checkemail(email_id,email_passwd):
                         if (len(urls) == 0):#url이 본문에 없으면
                             url_in_body = False #false
                         else :
-                            if(len(urls)>=2):#2개 이상이면
+                            if(len(urls)>=2):#url이 2개 이상이면
                                 for i in urls:
                                     result_of_checkurl.append(check_url.define(i))
                             else:# 1개면
@@ -121,10 +121,8 @@ def checkemail(email_id,email_passwd):
         try:
             for part in email_message.walk(): #첨부파일을 다운받는 함수
                     if part.get_content_maintype() == 'multipart':
-                        attachment_in_mail = False
                         continue
                     if part.get('Content-Disposition') is None:
-                        attachment_in_mail = False
                         continue
                     fileName = part.get_filename()
 
@@ -149,9 +147,13 @@ def checkemail(email_id,email_passwd):
                         print(file_split + " 첨부파일을 다운로드 하였습니다")
                         print("\n"+"\n")
                         print('----------------------------------')
+                        attachment_in_mail=True
+        
+        
         except:
             pass
 
+        
 
 
 
