@@ -17,14 +17,21 @@ def checkemail():
     _passwd = str(email_passwd.get())
     result=e.checkemail(_id,_passwd)
 
-    poped=result.pop()
-
     global string
     string=""
 
     file_name=""
     file_directory=""
+    poped=result.pop()
 
+
+
+    print(result)
+    if len(result) == 0:
+        string +="수신된 이메일이 없습니다."
+        return
+
+    
     if poped==1:#result의 맨뒤가 1이면 즉 첨부파일이랑 url이 없을떄
         print("메일 본문에 url과 첨부파일이 없습니다. \n\n\n")
         string+="메일 본문에 url과 첨부파일이 없습니다."
