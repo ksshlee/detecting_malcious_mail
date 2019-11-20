@@ -1,6 +1,7 @@
 import tkinter as tk
 import email_parser as e
-import tkinter.messagebox
+import get_hash_from_virustotal as get_hash
+import virus_result as get_result
 
 global string
 string=""
@@ -28,11 +29,21 @@ def checkemail():
             print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],i[1],i[2]))
             string+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
     elif poped==-1:#-1일때 즉 첨부파일만 있을때
+        for i in result:
+            print(i)
+
+            
         checkattachment()
     elif poped==-2:#-2일때 즉 둘다 있을때
         for i in result:
+            if isinstance(i,dict)==True:
+                print('dict 형태면 따로뺴는거 실험!')
+                print(i)
+                continue
             print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],i[1],i[2]))
             string+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
+
+
         checkattachment()
     
 

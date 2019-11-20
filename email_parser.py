@@ -28,7 +28,7 @@ def checkemail(email_id,email_passwd):
 
     url_in_body = True#본문에 url이 있는지 없는지 판별
     attachment_in_mail = False#본문에 첨부파일이 있는지 없는지 판별
-    result_of_checkurl = [] #url확인 결과
+    result_of_email_parser = [] #email_parser에서의 총 결과
 
     for num in data[0].split():
         typ, data = mail.fetch(num, '(RFC822)' )
@@ -110,10 +110,10 @@ def checkemail(email_id,email_passwd):
                         else :
                             if(len(urls)>=2):#url이 2개 이상이면
                                 for i in urls:
-                                    result_of_checkurl.append(check_url.define(i))
+                                    result_of_email_parser.append(check_url.define(i))
                             else:# 1개면
                                 for i in urls:
-                                    result_of_checkurl.append(check_url.define(i))
+                                    result_of_email_parser.append(check_url.define(i))
 
                     except:
                         pass
@@ -143,7 +143,7 @@ def checkemail(email_id,email_passwd):
                             fp = open(filePath, 'wb')
                             fp.write(part.get_payload(decode=True))
                             fp.close()
-                
+                        result_of_email_parser.append({'filename' : '{0}'.format(file_split)})
                         print(file_split + " 첨부파일을 다운로드 하였습니다")
                         print("\n"+"\n")
                         print('----------------------------------')
@@ -164,11 +164,11 @@ def checkemail(email_id,email_passwd):
     #-1이하가 되면 쿠크돌려주고
     #0이상이면 url만 확인해주고 쿠크샌드박스는 안돌려줘도 됨
     if url_in_body == False and attachment_in_mail == False:
-        result_of_checkurl.append(1)
+        result_of_email_parser.append(1)
     elif attachment_in_mail == False and url_in_body == True:
-        result_of_checkurl.append(0)
+        result_of_email_parser.append(0)
     elif url_in_body == False and attachment_in_mail == True:
-        result_of_checkurl.append(-1)
+        result_of_email_parser.append(-1)
     elif url_in_body == True and attachment_in_mail == True:
-        result_of_checkurl.append(-2)
-    return result_of_checkurl
+        result_of_email_parser.append(-2)
+    return result_of_email_parser
