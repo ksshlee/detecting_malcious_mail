@@ -7,8 +7,9 @@ global string
 string=""
 
 
-def checkattachment():
-    print('여긴 쿠쿠 박스해야돼요!! 해주세요!!')
+def check_attachment(filename,filedirectory):
+    get_hash.get_files_hash(filename,filedirectory)
+    get_result.get_result()
 
 
 def checkemail():
@@ -21,6 +22,9 @@ def checkemail():
     global string
     string=""
 
+    file_name=""
+    file_directory=""
+
     if poped==1:#result의 맨뒤가 1이면 즉 첨부파일이랑 url이 없을떄
         print("메일 본문에 url과 첨부파일이 없습니다. \n\n\n")
         string+="메일 본문에 url과 첨부파일이 없습니다."
@@ -30,21 +34,21 @@ def checkemail():
             string+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
     elif poped==-1:#-1일때 즉 첨부파일만 있을때
         for i in result:
-            print(i)
+            file_name = i.get('filename')#첨부파일 이름 추출
+            file_directory = './Downloads/'+file_name#첨부파일이 포함된 디렉토리
 
-            
-        checkattachment()
+        check_attachment(file_name,file_directory)
     elif poped==-2:#-2일때 즉 둘다 있을때
         for i in result:
-            if isinstance(i,dict)==True:
-                print('dict 형태면 따로뺴는거 실험!')
-                print(i)
+            if isinstance(i,dict)==True:#리스트 안에 dict 형태 즉 첨부파일 이름이 포함되어 있으면
+                file_name = i.get('filename')#첨부파일 이름 추출
+                file_directory = './Downloads/'+file_name#첨부파일이 포함된 디렉토리
                 continue
             print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],i[1],i[2]))
             string+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
 
 
-        checkattachment()
+        check_attachment(file_name,file_directory)
     
 
 
