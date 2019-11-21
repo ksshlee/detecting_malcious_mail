@@ -2,6 +2,9 @@ import whois
 
 
 def push_data(url):
+
+    p = open('passeddata.txt','a') #passed 데이터
+
     string = ""
 
     try:
@@ -41,7 +44,7 @@ def push_data(url):
             (key,value) = d.split(" : ")
             data_for_check_duplication[key] = value
 
-        #추가하고 싶은 데이터의 도메인 이름과 저장되어 있는 데이터에서 도메인 아룸 즁복검사
+        #추가하고 싶은 데이터의 도메인 이름과 저장되어 있는 데이터에서 도메인 이름 즁복검사
         if isinstance(domain_name, list):
             for dn in domain_name:
                 for flag in data_for_check_duplication.keys():
@@ -60,7 +63,7 @@ def push_data(url):
 
         #none 예외 통과 및 중복 검사 통과후
         f = open('data_set.txt','a') #데이터
-        p = open('passeddata.txt','a') #passed 데이터
+        
 
         f.write(url+" : ")
 
@@ -78,16 +81,14 @@ def push_data(url):
         
         string += url+" 데이터 추가완료"
 
+        f.close()
+
     except:
         #예외처리시
         p.write(url+" = pass\n")
         string += url+" 데이터 추가실패"
+        p.close()
 
-
-
-    f.close()
-    p.close()
+    
 
     return string
-
-push_data('www.naver.com')
