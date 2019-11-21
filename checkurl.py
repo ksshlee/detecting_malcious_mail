@@ -171,19 +171,19 @@ def define(url):
 
     for i in reasonphish:
         if 'checklength' in i:
-            string+='beacuse of your length!  '
+            string+='Url 길이 초과 '
         if 'checkgolbange' in i:
-            string+='beacuse your url include @  '
+            string+='@ 포함  '
         if 'checkslash' in i:
-            string+='beacuse your url include -  '
+            string+='- 포함  '
         if 'checkdoubleslash' in i:
-            string+='because your url include //  '
+            string+='// 포함  '
         if 'checkipaddress' in i:
-            string+='because your url contains ip address  '
+            string+='ip 주소 포함  '
         if 'httpsorhttp' in i:
             string+='because your url is http  '
         if 'checkport' in i:
-            string+='your url have port'
+            string+='포트번호 포함'
     #만약 결과가 100이라면
     if sum==100:
         result.append('피싱 사이트아님')
