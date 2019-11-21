@@ -22,8 +22,9 @@ def add_domain_data():
 
 #첨부파일 확인해주는 함수
 def check_attachment(filename,filedirectory):
+    global string_for_email_result
     get_hash.get_files_hash(filename,filedirectory)#파일 해시
-    get_result.get_result()#파일 검사 결과
+    string_for_email_result+=get_result.get_result()#파일 검사 결과
 
 
 

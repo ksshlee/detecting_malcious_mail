@@ -6,7 +6,9 @@ import time
 
 
 def get_result():
-    #바이러스 토탈 api키 입력
+    #반환 시켜줄 string 선언
+    string=""
+
     VT_KEY = 'd4488581e6ca8f7c1e8f2f355126b0f46844b906039887575e01fa7001946cf7'
     HOST = 'www.virustotal.com'
     SCAN_URL = 'https://www.virustotal.com/vtapi/v2/file/scan'
@@ -50,20 +52,27 @@ def get_result():
 
     print(" ")
     print("==============바이러스 토탈 로딩중============")
+    string+="=========================================\n"
     print("=========================================")
 
     if md5 =={}:
         print(" ********일치하는 값이 없습니다 **************")
     else:
+        string+="해당 파일의 해시값 : %s\n"%(md5)
         print("해당 파일의 해시값 : %s"%(md5))
-
+    string+="========================================\n"
     print("========================================")
     # time.sleep(20)#무료 api는 1분에 4개씩 제한이 있으므로 sleep을 시켜줍니다.
 
 
     for key in keys:
         if key=='FireEye' or key=='AhnLab-V3' or key=='ESET-NOD32' or key=='McAfee-GW-Edition' or key=='McAfee' or key=='Kaspersky' or key=='F-Secure':
+            string+='%-20s : %s\n' % (key,scan[key]['result'])
             print('%-20s : %s' % (key,scan[key]['result']))
 
     txtf.close()
+    string+='===============================\n'
     print('===============끝===============')
+
+
+    return string
