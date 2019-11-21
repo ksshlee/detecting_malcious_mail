@@ -12,7 +12,7 @@ def checkemail(email_id,email_passwd):
     email_pass = (email_passwd) #이메일 비밀번호
 
     mail = imaplib.IMAP4_SSL("imap.gmail.com","993") #주소와 포트번호
-
+    # mail = imaplib.IMAP4_SSL("imap.naver.com","995") #네이버주소와 포트번호
     mail.login(email_user, email_pass) #로그인
 
     mail.select('inbox') #받은 편지함 선택
@@ -52,28 +52,36 @@ def checkemail(email_id,email_passwd):
                     #시키면 가능
                 
                     from_split = email_from.split() #발신자
-                    try:
-                        if email_from[0:5] == "=?UTF": #한글이 섞여있어 인코딩 된
-                            #경우에만 디코딩 진행
-                            from_split2 = from_split[0]                
-                            from_split2 = from_split2[10:]
-                            from_split2 = base64.b64decode(from_split2)
-                            from_split2 = from_split2.decode('utf-8') # From base64디코드 후
-                        #utf-8 디코드
-                            print('From:' + from_split2 +" "+from_split[-1]+ '\n')
-                        elif email_from[0:5] == "=?utf": #한글이 섞여있어 인코딩 된
-                            #경우에만 디코딩 진행
-                            from_split2 = from_split[0]                
-                            from_split2 = from_split2[10:]
-                            from_split2 = base64.b64decode(from_split2)
-                            from_split2 = from_split2.decode('utf-8') # From base64디코드 후
-                        #utf-8 디코드
-                            print('From:' + from_split2 +" "+from_split[-1]+ '\n')
-                        else:
-                            from_split2 = email_from #영어는 그대로 출력
-                            print('From:' + from_split2+'\n')
-                    except:
-                        pass
+                    #발신자 슬라이싱
+                    for i in from_split:
+                        start_slice=i.find('<')
+                        end_slice=i.find('>')
+                        from_split=i[start_slice+1:end_slice]
+                    
+                    print('From : ' + from_split+'\n')
+
+                    # try:
+                    #     if email_from[0:5] == "=?UTF": #한글이 섞여있어 인코딩 된
+                    #         #경우에만 디코딩 진행
+                    #         from_split2 = from_split[0]                
+                    #         from_split2 = from_split2[10:]
+                    #         from_split2 = base64.b64decode(from_split2)
+                    #         from_split2 = from_split2.decode('utf-8') # From base64디코드 후
+                    #     #utf-8 디코드
+                    #         print('From:' + from_split2 +" "+from_split[-1]+ '\n')
+                    #     elif email_from[0:5] == "=?utf": #한글이 섞여있어 인코딩 된
+                    #         #경우에만 디코딩 진행
+                    #         from_split2 = from_split[0]                
+                    #         from_split2 = from_split2[10:]
+                    #         from_split2 = base64.b64decode(from_split2)
+                    #         from_split2 = from_split2.decode('utf-8') # From base64디코드 후
+                    #     #utf-8 디코드
+                    #         print('From:' + from_split2 +" "+from_split[-1]+ '\n')
+                    #     else:
+                    #         from_split2 = email_from #영어는 그대로 출력
+                    #         print('From:' + from_split2+'\n')
+                    # except:
+                    #     pass
 
                     try:
                         if email_subject[0:5] == "=?UTF": #제목
