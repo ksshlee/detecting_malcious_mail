@@ -60,9 +60,6 @@ def checkemail():
 
 
 
-
-
-
 root = tk.Tk()
 root.title('악성메일 탐지기')
 root.geometry('300x300')

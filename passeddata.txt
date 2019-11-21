@@ -1,19 +1,24 @@
 www.wooribank.com = pass
 https://sccd.wooribank.com = pass
+spot.wooribank.com = pass
 https://www.kbanknow.com = pass
 www.shinhan.com = pass
 https://www.nhqv.com = pass
+https://crowd.ibks.com = pass
 https://www.truefriend.com = pass
+https://www.kiwoom.com = pass
+https://home.imeritz.com = pass
 https://www.hanwhawm.com = pass
 www.qq.com = pass
-www.chosun.com = pass
 www.joins.com = pass
 www.dcinside.com = pass
-www.yahoo.com = pass
-www.office.com = pass
+www.microsoft.com = pass
+www.ntd.tv = pass
+www.diply.com = pass
+www.pinterest.com = pass
 www.paypal.com = pass
 www.blogspot.com = pass
-www.buzzfeed.com = pass
-www.msn.com = pass
-https://www.hanafn.com:8002 : None  None   
-www.blogspot.kr : None  None  
+www.blogspot.kr : None  None
+https://toss.im : toss.im  None
+https://www.hanafn.com:8002 : None  None
+

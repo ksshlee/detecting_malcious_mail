@@ -83,7 +83,7 @@ def checkport(url):#checked
 
 def urlwhois(url):#checked
     "url whois 활용"
-    f = open('test.txt', 'r') #open the data set
+    f = open('data_set.txt', 'r') #open the data set
     line = f.read().splitlines()
     f.close()
     text=whois.whois('{0}'.format(url)) #save whois data in text
