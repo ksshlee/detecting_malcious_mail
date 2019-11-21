@@ -2,17 +2,35 @@ import whois
 
 
 def push_data(url):
-    f = open('data_set.txt','a') #데이터를 추가할곳
-    p = open('passeddata.txt','a') #passed 데이터
-
     string = ""
 
     try:
         data = whois.whois(url)
         domain_name = data.get('domain_name')
         creation_date = data.get('creation_date')
-        if('None' in domain_name or 'None' in creation_date): #None이 들어가있으면 예외 처리
-            raise
+        #도메인 이름이 list형태일때
+        if(isinstance(domain_name,list)):
+            for i in domain_name:
+                if i is None:#domain이름이 none일때 예외 발생
+                    raise
+        else:
+            if domain_name is None:
+                raise
+        
+        #생성날짜가 list 형태일때
+        if(isinstance(creation_date,list)):
+            for i in creation_date:
+                if i is None:#생성날짜가 none일때 예외 발생
+                    raise
+        else:
+            if creation_date is None:
+                raise
+
+       
+
+        f = open('data_set.txt','a') #데이터
+        p = open('passeddata.txt','a') #passed 데이터
+
 
         f.write(url+" : ")
 
