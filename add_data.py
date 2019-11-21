@@ -1,8 +1,7 @@
 import whois
 
 
-
-def add_data(url):
+def push_data(url):
     f = open('data_set.txt','a') #데이터를 추가할곳
     p = open('passeddata.txt','a') #passed 데이터
 
@@ -30,7 +29,6 @@ def add_data(url):
             f.write("%s\n"%creation_date)
         
         string += url+" 데이터 추가완료"
-        
     except:
         p.write(url+" = pass\n")
         string += url+" 데이터 추가실패"
@@ -41,5 +39,3 @@ def add_data(url):
     p.close()
 
     return string
-
-add_data('toss.io')
