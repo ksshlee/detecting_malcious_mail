@@ -62,7 +62,8 @@ def get_result():
 
 
     for key in keys:
-        print('%-20s : %s' % (key,scan[key]['result']))
+        if key=='FireEye' or key=='AhnLab-V3' or key=='ESET-NOD32' or key=='McAfee-GW-Edition' or key=='McAfee' or key=='Kaspersky' or key=='F-Secure':
+            print('%-20s : %s' % (key,scan[key]['result']))
 
     txtf.close()
     print('===============끝===============')
