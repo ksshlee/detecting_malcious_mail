@@ -86,7 +86,7 @@ label_for_email = tk.Label(root, text='이메일').pack()
 email_id = tk.Entry(root)
 email_id.pack()
 label_for_passwd = tk.Label(root, text='비밀번호')
-email_passwd = tk.Entry(root)
+email_passwd = tk.Entry(root,show='*')
 email_passwd.pack()
 
 btn_for_check_mail = tk.Button(root, text='확인',command=checkemail).pack()
