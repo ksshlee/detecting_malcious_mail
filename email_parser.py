@@ -6,7 +6,6 @@ import sys
 import re
 import checkurl as check_url
 
-
 def checkemail(email_id,email_passwd):
     email_user = (email_id) #이메일 주소
     email_pass = (email_passwd) #이메일 비밀번호
@@ -26,9 +25,15 @@ def checkemail(email_id,email_passwd):
     #mail_ids[-1]을 하게 되면 가장 최신의 메일 선택
 
 
-    url_in_body = True#본문에 url이 있는지 없는지 판별
+    url_in_body = False#본문에 url이 있는지 없는지 판별
     attachment_in_mail = False#본문에 첨부파일이 있는지 없는지 판별
     result_of_email_parser = [] #email_parser에서의 총 결과
+
+
+    #만약 수신된 이메일이 없다면
+    if len(id_list) == 0:
+        result_of_email_parser.append(-10)
+        return result_of_email_parser
 
     for num in data[0].split():
         typ, data = mail.fetch(num, '(RFC822)' )
@@ -113,9 +118,8 @@ def checkemail(email_id,email_passwd):
                             
                         #정규 표현식으로 본문에 url 있는지 없는지 확인
                         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', body)
-                        if (len(urls) == 0):#url이 본문에 없으면
-                            url_in_body = False #false
-                        else :
+                        if (len(urls) > 0):#url이 본문에 있으면
+                            url_in_body = True #true
                             if(len(urls)>=2):#url이 2개 이상이면
                                 for i in urls:
                                     result_of_email_parser.append(check_url.define(i))

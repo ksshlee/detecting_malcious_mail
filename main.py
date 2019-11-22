@@ -3,12 +3,21 @@ import email_parser as e
 import get_hash_from_virustotal as get_hash
 import virus_result as get_result
 import add_data
+from datetime import datetime
 
 global string_for_email_result
 string_for_email_result=""
 
 global string_for_add_data_result
 string_for_add_data_result=""
+
+global file_name
+file_name=""
+
+
+global _id
+_id=""
+
 
 
 #사용자가 원하는 url 도메인 데이터 추가해주는 함수
@@ -30,6 +39,7 @@ def check_attachment(filename,filedirectory):
 
 #이메일 확인
 def checkemail():
+    global _id
     _id = str(email_id.get())
     _passwd = str(email_passwd.get())
     result=e.checkemail(_id,_passwd)
@@ -37,13 +47,15 @@ def checkemail():
     global string_for_email_result
     string_for_email_result=""
 
+    global file_name
     file_name=""
     file_directory=""
+
     poped=result.pop()
 
 
 
-    if len(result) == 0:
+    if poped == -10:
         string_for_email_result +="수신된 이메일이 없습니다."
         return
 
@@ -72,13 +84,44 @@ def checkemail():
 
 
         check_attachment(file_name,file_directory)
+
+
+
+#로그파일 만들기
+def make_log():
+    now = datetime.now()
+    log_file_name=str(now.year)+"_"+str(now.month)+"_"+str(now.day)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
+    global string_for_email_result
+
+
+    global file_name
+
+
+    global _id
+
+    f=open("./Logs/"+log_file_name,'w')
+    log_body = _id + "에 수신된 이메일 로그 파일입니다.\n\n\n\n"
+    if file_name is "":
+        log_body += "첨부파일은 없습니다.\n\n\n\n"
+    else:
+        log_body += "첨부파일의 이름은 : "+file_name+"입니다.\n\n\n\n"
+    
+    log_body+="------분석 결과------\n"
+    log_body+=string_for_email_result+"\n"
+    log_body+="------------------\n"
+
+    f.write(log_body)
+    f.close()
+
+
+
     
 
 
 
 root = tk.Tk()
 root.title('악성메일 탐지기')
-root.geometry('300x300')
+root.geometry('600x600')
 
 
 #이메일, 비밀번호 입력 영역
@@ -128,5 +171,11 @@ def see_addingdata_result():
 btn_for_addingdata_result = tk.Button(root, text='결과보기', command=see_addingdata_result).pack()
 
 label_for_addingdata_result.pack()
+
+
+
+btn_for_log = tk.Button(root, text='로그만들기', command=make_log).pack()
+
+
 
 root.mainloop()
