@@ -19,6 +19,9 @@ global _id
 _id=""
 
 
+global email_from
+email_from=""
+
 
 #사용자가 원하는 url 도메인 데이터 추가해주는 함수
 def add_domain_data():
@@ -55,9 +58,20 @@ def checkemail():
 
 
 
+
+
     if poped == -10:
         string_for_email_result +="수신된 이메일이 없습니다."
         return
+
+
+    #메일 발신자 변수에 저장
+    global email_from
+    email_from=result[0]
+
+
+    result.pop(0)#발신자 삭제
+
 
     
     if poped==1:#result의 맨뒤가 1이면 즉 첨부파일이랑 url이 없을떄
@@ -99,8 +113,11 @@ def make_log():
 
     global _id
 
+    global email_from
+
     f=open("./Logs/"+log_file_name,'w')
-    log_body = _id + "에 수신된 이메일 로그 파일입니다.\n\n\n\n"
+    log_body = "발송자 : "+email_from+"\n\n"
+    log_body +="수신자 : "+_id+"\n\n"
     if file_name is "":
         log_body += "첨부파일은 없습니다.\n\n\n\n"
     else:

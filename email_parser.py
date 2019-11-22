@@ -62,8 +62,12 @@ def checkemail(email_id,email_passwd):
                         start_slice=i.find('<')
                         end_slice=i.find('>')
                         from_split=i[start_slice+1:end_slice]
+
+                    result_of_email_parser.append(from_split)
                     
                     print('From : ' + from_split+'\n')
+
+
 
                     # try:
                     #     if email_from[0:5] == "=?UTF": #한글이 섞여있어 인코딩 된
