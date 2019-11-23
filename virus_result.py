@@ -72,6 +72,3 @@ def get_result():
 
 
     return string
-
-
-get_result()
