@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import whois
 from selenium import webdriver
 import re
+import datetime
 # 1은 정상 0은 의심 -1은 피싱
 
 def checklength(url):#checked
@@ -145,12 +146,30 @@ def ifdocs(url):
         return str
 
 
+def check_domain_creation(url):
+    text=whois.whois(url)
+    creation_date=text.get('creation_date')
+    date=datetime.datetime.now()
+    if isinstance(creation_date,list):
+        for i in creation_date:
+            if (date-i).days>=1095 and (date-i).days<1825:
+                return -10
+            elif (date-i).days<1095:
+                return -20
+    else:
+        if (date-creation_date).days>=1095 and (date-creation_date).days<1825:
+                return -10
+        elif (date-creation_date).days<1095:
+            return -20
+
+    return 10
+
 
 
 def define(url):
     sum =0
 
-    checklist=[checklength,checkgolbange,checkslash,checkdoubleslash,checkipaddress,checkport] #checknetwork , checkdomain   is not complete yet httpsorhttp 성능 저하 유발로 일시 보류
+    checklist=[checklength,checkgolbange,checkslash,checkdoubleslash,checkipaddress,checkport,check_domain_creation] #checknetwork , checkdomain   is not complete yet httpsorhttp 성능 저하 유발로 일시 보류
     reasonphish=[] # to tell why it is phish
     result=[]
 
@@ -164,8 +183,16 @@ def define(url):
             sum+=i(url)
             if i(url)<=0 :
                 reasonphish.append(str(i))
-    
-    result.append(sum)
+    if(sum<100 and sum>19):
+        result.append(80)
+    elif(sum<=19 and sum >=16):
+        result.append(60)
+    elif(sum<16 and sum >13):
+        result.append(40)
+    elif(sum<=13 and sum>=11):
+        result.append(20)
+    else:
+        result.append(0)
 
     string=""
 
@@ -184,6 +211,9 @@ def define(url):
             string+='because your url is http  '
         if 'checkport' in i:
             string+='포트번호 포함'
+        if 'check_domain_creation' in i:
+            string+="도메인 생성날짜 의심"
+
     #만약 결과가 100이라면
     if sum==100:
         result.append('피싱 사이트아님')
