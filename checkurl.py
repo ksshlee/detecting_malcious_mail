@@ -6,7 +6,7 @@ import re
 import datetime
 # 1은 정상 0은 의심 -1은 피싱
 
-def checklength(url):#checked
+def check_url_length(url):
     "url 길이 확인해주는 함수"
     if len(url)<54:
         return 2
@@ -15,25 +15,25 @@ def checklength(url):#checked
     else:
         return -1
 
-def checkgolbange(url):#checked
+def check_at_sign(url):
     "url에 @가 있는지 없는지 확인해주는 함수"
     if "@" in url:
         return -6
     return 3
 
-def checkslash(url):#checked
+def check_minus(url):
     "url에 -가 있는지 없는지 확인해주는 함수"
     if "-" in url:
         return -2
     return 2
 
-def checkdoubleslash(url):#checked
+def check_double_slash(url):
     "url에 추가적인 //가 있는지 확인"
     if "//" in url[7:]:
         return -4
     return 2
 
-def checkipaddress(url):#checked
+def check_ip_address_in_url(url):
     "url에 ip주소가 있는지 없는지 확인해주는 함수"
     text = (re.search('([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3}.)', '{0}'.format(url)))
     if text == None:
@@ -42,33 +42,7 @@ def checkipaddress(url):#checked
     return -9
 
 
-
-def httpsorhttp(url):#checked
-    "http 인지 https인지 도출 요즘 은행, 비트코인 등 왠만한 거래들, 대기업 사이트들은 다 https에유"
-    if 'https' in url or 'http' in url:
-        pass
-        #url='http'+url
-    else:
-        url='http://'+url
-
-
-
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    options.add_argument("--disable-gpu")
-
-    driver = webdriver.Chrome('./chromedriver', chrome_options=options)
-    driver.get(url) #Trying http first
-    url = driver.current_url
-
-    if(url[:url.find(":")]=='https'):
-        return 3
-
-
-    return -4
-
-
-def checkport(url):#checked
+def check_port_in_url(url):
     "url에 포트있는지 없는지 확인"
     parts = urlparse('{0}'.format(url))
     if parts.port == None:
@@ -78,11 +52,11 @@ def checkport(url):#checked
     else :
         return -4
 
-# def shortenurl(url): not yet but soon will be update
+# def check_if_shorten_url(url): not yet but soon will be update
 #     if sorten:
 #         return -10
 
-def urlwhois(url):#checked
+def check_with_whois(url):
     "url whois 활용"
     f = open('data_set.txt', 'r') #open the data set
     line = f.read().splitlines()
@@ -140,13 +114,15 @@ def urlwhois(url):#checked
 
 
 #to detect is it docs url
-def ifdocs(url):
+def cehck_if_docs(url):
+    """구글 doc url인지 아닌지 판별해주는 함수"""
     if 'docs' in url:
         str= "it is docs url don't type important imformation if it is not sure"
         return str
 
 
 def check_domain_creation(url):
+    """도메인 생성날짜 알려주는 함수"""
     text=whois.whois(url)
     creation_date=text.get('creation_date')
     date=datetime.datetime.now()
@@ -169,21 +145,24 @@ def check_domain_creation(url):
 def define(url):
     sum =0
 
-    checklist=[checklength,checkgolbange,checkslash,checkdoubleslash,checkipaddress,checkport,check_domain_creation] #checknetwork , checkdomain   is not complete yet httpsorhttp 성능 저하 유발로 일시 보류
+    checklist=[check_url_length,check_at_sign,check_minus,check_double_slash,check_ip_address_in_url,check_port_in_url,check_domain_creation] #checknetwork , checkdomain   is not complete yet httpsorhttp 성능 저하 유발로 일시 보류
     reasonphish=[] # to tell why it is phish
     result=[]
 
 
     result.append(url)
     
-    if (urlwhois(url)==1):
+    if (check_with_whois(url)==1):
         sum+=100
     else:
         for i in checklist:
             sum+=i(url)
             if i(url)<=0 :
                 reasonphish.append(str(i))
-    if(sum<100 and sum>19):
+
+    if(sum==100):
+        result.append(100)
+    elif(sum<100 and sum>19):
         result.append(80)
     elif(sum<=19 and sum >=16):
         result.append(60)
@@ -197,19 +176,19 @@ def define(url):
     string=""
 
     for i in reasonphish:
-        if 'checklength' in i:
+        if 'check_url_length' in i:
             string+='Url 길이 초과 '
-        if 'checkgolbange' in i:
+        if 'check_at_sign' in i:
             string+='@ 포함  '
-        if 'checkslash' in i:
+        if 'check_minus' in i:
             string+='- 포함  '
-        if 'checkdoubleslash' in i:
+        if 'check_double_slash' in i:
             string+='// 포함  '
-        if 'checkipaddress' in i:
+        if 'check_ip_address_in_url' in i:
             string+='ip 주소 포함  '
         if 'httpsorhttp' in i:
             string+='because your url is http  '
-        if 'checkport' in i:
+        if 'check_port_in_url' in i:
             string+='포트번호 포함'
         if 'check_domain_creation' in i:
             string+="도메인 생성날짜 의심"
