@@ -22,3 +22,6 @@ www.blogspot.kr : None  None
 https://toss.im : toss.im  None
 https://www.hanafn.com:8002 : None  None
 
+https://bsrastreiobr.com
+ = pass
+https://www.phishtank.com = pass

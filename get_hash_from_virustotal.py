@@ -9,8 +9,6 @@ def FileScan(filepath,apikey,url):
         return response.json()
 
 
-
-
 def get_files_hash(files_name,files_path):
     url = 'http://www.virustotal.com/vtapi/v2/file/scan'
     file_path = files_path #경로

@@ -3,7 +3,7 @@ import whois
 
 def push_data(url):
 
-    p = open('passeddata.txt','a') #passed 데이터
+    p = open('passed_data.txt','a') #passed 데이터
 
     string = ""
 
@@ -59,11 +59,11 @@ def push_data(url):
                     return string
 
 
-
-
         #none 예외 통과 및 중복 검사 통과후
         f = open('data_set.txt','a') #데이터
         
+
+        #data 추가
 
         f.write(url+" : ")
 
@@ -84,11 +84,10 @@ def push_data(url):
         f.close()
 
     except:
-        #예외처리시
+        #예외 발생시
         p.write(url+" = pass\n")
         string += url+" 데이터 추가실패"
         p.close()
-
     
 
     return string

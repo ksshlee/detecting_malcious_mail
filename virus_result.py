@@ -61,6 +61,7 @@ def get_result():
     # time.sleep(20)#무료 api는 1분에 4개씩 제한이 있으므로 sleep을 시켜줍니다.
 
 
+    #유명 백신회사의 결과값만 출력
     for key in keys:
         if key=='FireEye' or key=='AhnLab-V3' or key=='ESET-NOD32' or key=='McAfee-GW-Edition' or key=='McAfee' or key=='Kaspersky' or key=='F-Secure':
             string+='%-20s : %s\n' % (key,scan[key]['result'])

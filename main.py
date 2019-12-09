@@ -23,7 +23,7 @@ global email_from
 email_from=""
 
 
-#사용자가 원하는 url 도메인 데이터 추가해주는 함수
+#원하는 url 도메인 데이터 추가해주는 함수
 def add_domain_data():
     global string_for_add_data_result
     string_for_add_data_result="" #결과 도출할 변수 초기화
@@ -57,9 +57,6 @@ def checkemail():
     poped=result.pop()
 
 
-
-
-
     if poped == -10:
         string_for_email_result +="수신된 이메일이 없습니다."
         return
@@ -79,22 +76,25 @@ def checkemail():
         string_for_email_result+="메일 본문에 url과 첨부파일이 없습니다."
     elif poped==0:#result의 맨뒤가 0일때 즉 url 만있을때
         for i in result:
-            print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],i[1],i[2]))
-            string_for_email_result+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
+            print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],int(i[1]),i[2]))
+            string_for_email_result+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],int(i[1]),i[2])
     elif poped==-1:#-1일때 즉 첨부파일만 있을때
         for i in result:
             file_name = i.get('filename')#첨부파일 이름 추출
+            file_name = 'strong2.zip'
             file_directory = './Downloads/'+file_name#첨부파일이 포함된 디렉토리
 
         check_attachment(file_name,file_directory)
     elif poped==-2:#-2일때 즉 둘다 있을때
+        print(result)
         for i in result:
             if isinstance(i,dict)==True:#리스트 안에 dict 형태 즉 첨부파일 이름이 포함되어 있으면
                 file_name = i.get('filename')#첨부파일 이름 추출
+                file_name = 'strong2.zip'
                 file_directory = './Downloads/'+file_name#첨부파일이 포함된 디렉토리
                 continue
-            print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],i[1],i[2]))
-            string_for_email_result+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],i[1],i[2])
+            print('%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.'%(i[0],int(i[1]),i[2]))
+            string_for_email_result+='%s의 사이트에서 %d 확률이 나왔습니다. 이유는 %s 와 같은 이유입니다.\n'%(i[0],int(i[1]),i[2])
 
 
         check_attachment(file_name,file_directory)

@@ -4,7 +4,7 @@ import os
 import email
 import sys
 import re
-import checkurl as check_url
+import check_url as check_url
 
 def checkemail(email_id,email_passwd):
     email_user = (email_id) #이메일 주소
@@ -66,31 +66,6 @@ def checkemail(email_id,email_passwd):
                     result_of_email_parser.append(from_split)
                     
                     print('From : ' + from_split+'\n')
-
-
-
-                    # try:
-                    #     if email_from[0:5] == "=?UTF": #한글이 섞여있어 인코딩 된
-                    #         #경우에만 디코딩 진행
-                    #         from_split2 = from_split[0]                
-                    #         from_split2 = from_split2[10:]
-                    #         from_split2 = base64.b64decode(from_split2)
-                    #         from_split2 = from_split2.decode('utf-8') # From base64디코드 후
-                    #     #utf-8 디코드
-                    #         print('From:' + from_split2 +" "+from_split[-1]+ '\n')
-                    #     elif email_from[0:5] == "=?utf": #한글이 섞여있어 인코딩 된
-                    #         #경우에만 디코딩 진행
-                    #         from_split2 = from_split[0]                
-                    #         from_split2 = from_split2[10:]
-                    #         from_split2 = base64.b64decode(from_split2)
-                    #         from_split2 = from_split2.decode('utf-8') # From base64디코드 후
-                    #     #utf-8 디코드
-                    #         print('From:' + from_split2 +" "+from_split[-1]+ '\n')
-                    #     else:
-                    #         from_split2 = email_from #영어는 그대로 출력
-                    #         print('From:' + from_split2+'\n')
-                    # except:
-                    #     pass
 
                     try:
                         if email_subject[0:5] == "=?UTF": #제목
@@ -170,8 +145,6 @@ def checkemail(email_id,email_passwd):
             pass
 
         
-
-
 
     #최종 결과
     #둘다 없으면 1

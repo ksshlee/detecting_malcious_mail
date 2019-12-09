@@ -158,6 +158,7 @@ def define(url):
         for i in checklist:
             sum+=i(url)
             if i(url)<=0 :
+                #0보다 작은건 의심 혹은 피싱이므로 reasonphish 리스트에 해당 함수를 추가한다.
                 reasonphish.append(str(i))
 
     if(sum==100):
@@ -192,6 +193,11 @@ def define(url):
             string+='포트번호 포함'
         if 'check_domain_creation' in i:
             string+="도메인 생성날짜 의심"
+
+
+    #result 형태
+    #[url 검사 결과 점수,의심인 이유]
+
 
     #만약 결과가 100이라면
     if sum==100:
